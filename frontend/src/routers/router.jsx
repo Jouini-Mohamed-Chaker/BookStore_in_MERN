@@ -4,6 +4,7 @@ import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import AdminDashboard from "../pages/AdminDashboard";
 import Favourites from "../pages/Favourites";
+import NotFound from "../pages/NotFound";
 
 const Router = () => (
   <Routes>
@@ -11,7 +12,8 @@ const Router = () => (
     <Route path="/signup" element={<Signup />} />
     <Route path="/login" element={<Login />} />
     <Route path="/admin" element={<AdminDashboard />} />
-    <Route path="/favourites" element={<Favourites />} />{" "}
+    <Route path="/favourites" element={<Favourites />} />
+    <Route path="*" element={<NotFound />} />{" "}
   </Routes>
 );
 
