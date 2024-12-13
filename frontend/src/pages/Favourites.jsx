@@ -16,7 +16,7 @@ const Favourites = () => {
         }
 
         const data = await fetchFavourites(userId); // Fetch user's favourite books
-        setFavourites(data);
+        setFavourites(data.favouriteBooks || []); // Use the 'favouriteBooks' array from the response
         setLoading(false);
       } catch (err) {
         setError(err.message || "Failed to load favourites");

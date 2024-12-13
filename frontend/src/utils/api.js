@@ -34,6 +34,28 @@ export const addBook = async (book) => {
   }
 };
 
+// Updating a book
+export const updateBook = async (bookId, updatedBook) => {
+  try {
+    const response = await fetch(`${API_URL}/books/${bookId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedBook),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update book");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating book:", error);
+    throw error;
+  }
+};
+
 // Add to favourites
 export const addToFavourites = async (userId, bookId) => {
   try {
