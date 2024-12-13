@@ -1,3 +1,5 @@
+// src/utils/api.js
+
 const API_URL = "http://localhost:5000";
 
 // Fetch all books
@@ -54,6 +56,17 @@ export const updateBook = async (bookId, updatedBook) => {
     console.error("Error updating book:", error);
     throw error;
   }
+};
+
+// Delete a book
+export const deleteBook = async (bookId) => {
+  const response = await fetch(`/api/books/${bookId}`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error("Failed to delete book");
+  }
+  return await response.json();
 };
 
 // Add to favourites
