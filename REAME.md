@@ -1,6 +1,14 @@
 # How to run the project
 
-### make the script executable
+### Create a .env file in the backend directory that has
+
+```bash
+PORT=5000
+MONGODB_URI="<your_mongodb_uri>"
+SECRET_JWT_KEY="<your_secret_jwt_Token>"
+```
+
+### Make the script executable
 
 ```bash
 chmod +x script.sh
