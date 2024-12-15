@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require("uuid"); // Import UUID generator
+const { v4: uuidv4 } = require("uuid");
 
 let bookCollections;
 

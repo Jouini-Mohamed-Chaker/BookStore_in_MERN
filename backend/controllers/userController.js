@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require("uuid"); // Import UUID generator
+const { v4: uuidv4 } = require("uuid");
 const { connectToDatabase } = require("../config/database");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
