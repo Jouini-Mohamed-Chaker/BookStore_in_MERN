@@ -26,9 +26,4 @@ cd frontend
 echo "Running npm install in frontend..."
 npm install
 echo "Starting the frontend..."
-npm run dev &
-
-# Return to the root directory
-cd ..
-
-echo "Backend and frontend are running!"
+npm run dev
