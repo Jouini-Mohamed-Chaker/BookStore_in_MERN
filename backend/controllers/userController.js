@@ -1,8 +1,12 @@
 const { v4: uuidv4 } = require("uuid"); // Import UUID generator
 const { connectToDatabase } = require("../config/database");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+
+const SECRET_KEY = process.env.SECRET_JWT_KEY;
 
 /**
- * Handles user signup.
+ * Handles user signup
  */
 async function signup(req, res) {
   try {
@@ -12,8 +16,7 @@ async function signup(req, res) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Ensure the database is connected and get the user collection
-    const { userCollections } = await connectToDatabase();
+    const { userCollections } = await connectToDatabase(); // Ensure connection
 
     // Check if the user already exists
     const existingUser = await userCollections.findOne({ email });
@@ -21,16 +24,22 @@ async function signup(req, res) {
       return res.status(400).json({ message: "Email is already in use" });
     }
 
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user object
     const newUser = {
-      _id: uuidv4(), // Generate a UUID for user ID
+      _id: uuidv4(),
       name,
       email,
-      password, // Store password as plain text (not recommended in production)
-      role: "user", // Default role is "user"
+      password: hashedPassword, // Store the hashed password
+      role: "user",
       favouriteBooks: [],
     };
 
+    // Insert the new user into the database
     const result = await userCollections.insertOne(newUser);
+
     res.status(201).json({
       message: "User created successfully",
       userId: result.insertedId,
@@ -48,19 +57,25 @@ async function login(req, res) {
   try {
     const { email, password } = req.body;
 
-    const { userCollections } = await connectToDatabase(); // Ensure connection
+    const { userCollections } = await connectToDatabase();
 
     const user = await userCollections.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Check password directly (no hashing)
-    if (password !== user.password) {
+    const isPasswordValid = await bcrypt.compare(password, user.hashedPassword);
+    if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    res.status(200).json({ message: "Login successful", role: user.role });
+    const token = jwt.sign(
+      { userId: user._id, email: user.email, role: user.role },
+      SECRET_KEY,
+      { expiresIn: "1h" } // Token expires in 1 hour
+    );
+
+    res.status(200).json({ message: "Login successful", token });
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Failed to login", error });

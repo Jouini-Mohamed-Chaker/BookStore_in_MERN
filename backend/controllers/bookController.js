@@ -24,7 +24,6 @@ async function addBook(req, res) {
     res.status(500).json({ message: "Failed to add book", error });
   }
 }
-
 /**
  * Fetches all books from the collection.
  */

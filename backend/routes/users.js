@@ -5,6 +5,7 @@ const {
   addFavourite,
   getFavourites,
 } = require("../controllers/userController");
+const authenticateToken = require("../middleware/authenticateToken");
 
 const router = express.Router();
 
@@ -24,12 +25,12 @@ router.post("/login", login);
  * Route: POST /users/favourites
  * Description: Add a book to user's favourites
  */
-router.post("/favourites", addFavourite);
+router.post("/favourites", authenticateToken, addFavourite);
 
 /**
  * Route: GET /users/favourites/:userId
  * Description: Get all favourite books for a user
  */
-router.get("/favourites/:userId", getFavourites);
+router.get("/favourites/:userId", authenticateToken, getFavourites);
 
 module.exports = router;
