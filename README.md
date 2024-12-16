@@ -1,7 +1,3 @@
-Here's an improved version of your README:
-
----
-
 # How to Run the Project
 
 Follow these steps to set up and run the project:
