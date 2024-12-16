@@ -1,28 +1,42 @@
-# How to run the project
+Here's an improved version of your README:
 
-### Create a .env file in the backend directory that has
+---
+
+# How to Run the Project
+
+Follow these steps to set up and run the project:
+
+### 1. Create a `.env` File in the Backend Directory
+
+Create a `.env` file in the backend directory with the following content:
 
 ```bash
 PORT=5000
 MONGODB_URI="<your_mongodb_uri>"
-SECRET_JWT_KEY="<your_secret_jwt_Token>"
+SECRET_JWT_KEY="<your_secret_jwt_token>"
 ```
 
-### Make the script executable
+Ensure that you replace `<your_mongodb_uri>` and `<your_secret_jwt_token>` with your actual MongoDB URI and JWT secret token.
+
+### 2. Make the Script Executable
+
+Give the script execution permissions by running:
 
 ```bash
 chmod +x script.sh
 ```
 
-### Execute it
+### 3. Execute the Script
+
+Run the script to start the backend and frontend:
 
 ```bash
 ./script.sh
 ```
 
-### In your browser open the Vite local link
+### 4. Open the Frontend in Your Browser
 
-example:
+Once the script is executed, you will see output similar to this:
 
 ```bash
   VITE v6.0.3  ready in 319 ms
@@ -35,4 +49,6 @@ Database selected: BookInventory
 Server is running on http://localhost:5000
 ```
 
-### Here the backend is running on port 5000 and frontend on port 5173, So use http://localhost:5173/ not the other link
+The backend is running on port `5000`, and the frontend is running on port `5173`.
+
+**Important:** Access the frontend at [http://localhost:5173](http://localhost:5173), not the backend URL.
